@@ -9,7 +9,7 @@ def filter_dataframe(dataframe, col_name, val):
     return filtered_df
 
 
-# Create example dataframe with 4 columns.
+# Create sample dataframe with 4 columns.
 df = pd.DataFrame({
     'ID': [1, 2, 3, 4, 5],
     'Region': ['NA', 'LATAM', 'NA', 'EMEA', 'APAC'],
@@ -27,5 +27,46 @@ print(
 )
 
 
+# Ejercicio 2
+# Function
+#________
+def generate_regression_data(n_samples):
+    return 223
 
+
+fake = Faker()
+n_samples = 3
+for i in range(n_samples):
+    print(
+    fake.random_number(digits=2)
+    )
+
+# _________
+
+# EJERCICIO 3
+
+
+# _________
+
+# EJERCICIO 4
+# Function
+def flatten_list (list_of_lists):
+    flat_list = []
+    for x in list_of_lists:
+        flat_list.extend(x)
+    return flat_list
+
+
+# Create sample list of lists
+list_of_lists = [['a', 'b', 'c'], [1, 2, 3], ['x', 'y', 'z'], [7, 8, 9]]
+print('\n This is a sample list of lists')
+print(list_of_lists)
+
+print('\n This is a flattened list')
+print(
+    flatten_list(list_of_lists)
+)
+
+
+# EJERCICIO 5
 
