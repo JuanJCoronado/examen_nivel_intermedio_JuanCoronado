@@ -29,7 +29,7 @@ print(
 
 # Ejercicio 2
 # Function
-#________
+# ________
 def generate_regression_data(n_samples):
     return 223
 
@@ -38,8 +38,9 @@ fake = Faker()
 n_samples = 3
 for i in range(n_samples):
     print(
-    fake.random_number(digits=2)
+        fake.random_number(digits=2)
     )
+
 
 # _________
 
@@ -50,7 +51,7 @@ for i in range(n_samples):
 
 # EJERCICIO 4: List comprehension anidado
 # Function
-def flatten_list (list_of_lists):
+def flatten_list(list_of_lists):
     flat_list = []
     for x in list_of_lists:
         flat_list.extend(x)
@@ -92,3 +93,37 @@ print('\n This is the grouped and aggregated df.')
 print(
     group_and_aggregate(df, 'Region')
 )
+
+
+# EJERCICIO 6: Modelo de clasificacion logistica
+
+
+# EJERCICIO 7: Aplicar funcion una columna con Pandas
+# Function
+def apply_function_to_column(dataframe, col):
+    def modify_salary(row):
+        if row[col] == 'John':
+            return row['Salary'] * 1.1
+        elif row[col] == 'Erin' or row[col] == 'Danielle':
+            return row['Salary'] * 1.05
+        return row['Salary']
+
+    dataframe['Salary'] = dataframe.apply(modify_salary, axis=1)
+
+
+# Create sample dataframe with 3 columns.
+df = pd.DataFrame({
+    'ID': [1, 2, 3],
+    'Name': ['John', 'Erin', 'Danielle'],
+    'Salary': [50000, 70000, 80000]
+})
+
+print('\n This is the sample df.')
+print(df)
+
+# Call function and print result
+print('\n This is the modified df.')
+apply_function_to_column(df, 'Name')
+print(df)
+
+# EJERCICIO 8:
