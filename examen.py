@@ -17,11 +17,11 @@ df = pd.DataFrame({
     'Value': [1.5, 2.5, 0.5, 3.2, 1.2]
 
 })
-print('This is the unfiltered df.')
+print('This is a sample df.')
 print(df)
 
 # Call function and print result
-print('\n This is the filtered df.')
+print('\n This is a filtered df.')
 print(
     filter_dataframe(df, 'Value', 1.4)
 )
@@ -85,11 +85,11 @@ df = pd.DataFrame({
     'Price': [200, 300, 100, 200, 400]
 })
 
-print('\n This is the sample df.')
+print('\n This is a sample df.')
 print(df)
 
 # Call function and print result
-print('\n This is the grouped and aggregated df.')
+print('\n This is a grouped and aggregated df.')
 print(
     group_and_aggregate(df, 'Region')
 )
@@ -118,12 +118,34 @@ df = pd.DataFrame({
     'Salary': [50000, 70000, 80000]
 })
 
-print('\n This is the sample df.')
+print('\n This is a sample df.')
 print(df)
 
 # Call function and print result
-print('\n This is the modified df.')
+print('\n This is a modified column from the df.')
 apply_function_to_column(df, 'Name')
 print(df)
 
-# EJERCICIO 8:
+
+# EJERCICIO 8: Comprehensions con condiciones
+# Function
+def filter_and_square(number_list):
+    new_list = []
+    for x in number_list:
+        if x > 5:
+            new_list.append(x)
+
+    return [x ** 2 for x in new_list]
+
+
+# Create sample list
+n_list = [4, 6, 8, 3, 9]
+
+print('\n This is a sample list.')
+print(n_list)
+
+# Call function and print result
+print('\n This is a filtered and squared list.')
+print(
+    filter_and_square(n_list)
+)
