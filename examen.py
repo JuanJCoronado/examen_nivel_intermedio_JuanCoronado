@@ -2,10 +2,10 @@ import pandas as pd
 from faker import Faker
 
 
-# EJERCICIO 1
+# EJERCICIO 1: Filtrar DataFrame con Pandas
 # Function
-def filter_dataframe(dataframe, col_name, val):
-    filtered_df = dataframe.loc[dataframe[col_name] > val]
+def filter_dataframe(dataframe, col, val):
+    filtered_df = dataframe.loc[dataframe[col] > val]
     return filtered_df
 
 
@@ -48,7 +48,7 @@ for i in range(n_samples):
 
 # _________
 
-# EJERCICIO 4
+# EJERCICIO 4: List comprehension anidado
 # Function
 def flatten_list (list_of_lists):
     flat_list = []
@@ -59,14 +59,36 @@ def flatten_list (list_of_lists):
 
 # Create sample list of lists
 list_of_lists = [['a', 'b', 'c'], [1, 2, 3], ['x', 'y', 'z'], [7, 8, 9]]
-print('\n This is a sample list of lists')
+print('\n This is a sample list of lists.')
 print(list_of_lists)
 
-print('\n This is a flattened list')
+# Call function and print result
+print('\n This is a flattened list.')
 print(
     flatten_list(list_of_lists)
 )
 
 
-# EJERCICIO 5
+# EJERCICIO 5: Agrupar y agregar con Pandas
+# FUNCTION
+def group_and_aggregate(dataframe, col):
+    grouped_df = df.groupby(col)['Price'].mean()
+    return grouped_df
 
+
+# Create sample dataframe with 4 columns.
+df = pd.DataFrame({
+    'ID': [1, 2, 3, 4, 5],
+    'Region': ['LATAM', 'LATAM', 'LATAM', 'EMEA', 'EMEA'],
+    'Country': ['CO', 'MX', 'PE', 'RO', 'GE'],
+    'Price': [200, 300, 100, 200, 400]
+})
+
+print('\n This is the sample df.')
+print(df)
+
+# Call function and print result
+print('\n This is the grouped and aggregated df.')
+print(
+    group_and_aggregate(df, 'Region')
+)
