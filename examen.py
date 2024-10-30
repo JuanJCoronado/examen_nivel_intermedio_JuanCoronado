@@ -1,9 +1,9 @@
 import pandas as pd
 import numpy as np
 from faker import Faker
-from sklearn.linear_model import LinearRegression
+from sklearn.linear_model import LinearRegression, LogisticRegression
 from sklearn.model_selection import train_test_split
-from sklearn.metrics import mean_squared_error, r2_score
+from sklearn.metrics import mean_squared_error, r2_score, classification_report
 
 
 # FUNCTIONS
@@ -25,7 +25,7 @@ def generate_regression_data(num_samples):
 
 
 # Function 3
-def train_multiple_linear_regression(independent_vars, dependent_var):
+def train_multiple_linear_regression(dataframe, independent_vars, dependent_var):
     X = independent_vars
     y = dependent_var
     X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=1)
@@ -56,6 +56,39 @@ def flatten_list(list_of_lists):
 def group_and_aggregate(dataframe, col_to_group, col_to_aggregate):
     grouped_df = dataframe.groupby(col_to_group)[col_to_aggregate].mean()
     return grouped_df
+
+
+# Function 6
+def train_logistic_regression(independent_var, dependant_var):
+    X = independent_var
+    y = dependant_var
+    X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=1)
+
+    model = LogisticRegression()
+    model.fit(X_train, y_train)
+
+    predictions = model.predict(X_test)
+
+    # Create new df.
+    new_df = pd.DataFrame({
+        'glucose': X_test['Glucose'],
+        'outcome': y_test,
+        'prob': model.predict_proba(X_test)[:, 1]
+    })
+    new_df = new_df.sort_values('prob')
+    new_df['predictions'] = predictions
+
+    # Print the test df with prob and pred.
+    print('\n This is the df that contains the test data used, along with probabiliesy and predictions.')
+    print(new_df)
+
+    # Evaluate the model.
+    print('\n These are metrics that evaluate the model')
+    print('Accuracy', model.score(X_test, y_test))
+    print('\n Classification report')
+    print(classification_report(y_test, model.predict(X_test)))
+
+    return model
 
 
 # Function 7
@@ -103,7 +136,7 @@ print(filter_dataframe(df, 'Price', Value))
 # EJERCICIO 2: Generar datos para regresion.
 # Create faker instance and define sample size.
 fake = Faker()
-n_samples = 20
+n_samples = 500
 
 # Call function and print generated fake data df.
 print('\n This is a sample df generated using Faker.')
@@ -117,7 +150,7 @@ X = data[['Independent_Var1', 'Independent_Var2']]
 y = data[['Dependant_Var']]
 
 # Call function.
-train_multiple_linear_regression(X, y)
+train_multiple_linear_regression(data, X, y)
 
 
 # EJERCICIO 4: List comprehension anidado.
@@ -152,8 +185,17 @@ print(group_and_aggregate(df, 'Region', 'Price'))
 
 
 # EJERCICIO 6: Modelo de clasificacion logistica.
+# Load data from diabetes.csv and print sample df.
+diabetes_df = pd.read_csv('diabetes.csv')
+print('\n This is a sample diabetes df')
+print(diabetes_df)
 
-# pendiente
+# Assign variables.
+X = diabetes_df[['Glucose']]
+y = diabetes_df['Outcome']
+
+# Call function.
+train_logistic_regression(X, y)
 
 # EJERCICIO 7: Aplicar funcion una columna con Pandas.
 # Create sample df.
