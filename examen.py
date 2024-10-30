@@ -53,11 +53,34 @@ def flatten_list(list_of_lists):
 
 
 # Function 5
-def group_and_aggregate(dataframe, column):
-    grouped_df = df.groupby(column)['Price'].mean()
+def group_and_aggregate(dataframe, col_to_group, col_to_aggregate):
+    grouped_df = dataframe.groupby(col_to_group)[col_to_aggregate].mean()
     return grouped_df
 
 
+# Function 7
+def apply_function_to_column(dataframe, col):
+    def modify_salary(row):
+        if row[col] == 'John':
+            return row['Salary'] * 1.1
+        elif row[col] == 'Erin' or row[col] == 'Danielle':
+            return row['Salary'] * 1.05
+        return row['Salary']
+
+    dataframe['Salary'] = dataframe.apply(modify_salary, axis=1)
+
+
+# Function 8
+def filter_and_square(number_list):
+    new_list = []
+    for x in number_list:
+        if x > 5:
+            new_list.append(x)
+    return [x ** 2 for x in new_list]
+
+
+# _____________________________________________________
+# EJERCICIOS
 # EJERCICIO 1: Filtrar DataFrame con Pandas.
 # Create sample df and define value to filter.
 df = pd.DataFrame({
@@ -82,7 +105,7 @@ print(filter_dataframe(df, 'Price', Value))
 fake = Faker()
 n_samples = 20
 
-# Call function and print generated df.
+# Call function and print generated fake data df.
 print('\n This is a sample df generated using Faker.')
 data = generate_regression_data(n_samples)
 print(data)
@@ -111,7 +134,7 @@ print(flatten_list(list_of_lists))
 
 
 # EJERCICIO 5: Agrupar y agregar con Pandas.
-# Create sample dataframe.
+# Create sample df.
 df = pd.DataFrame({
     'ID': [1, 2, 3, 4, 5],
     'Region': ['LATAM', 'LATAM', 'LATAM', 'EMEA', 'EMEA'],
@@ -125,60 +148,38 @@ print(df)
 
 # Call function and print grouped and aggregated df.
 print('\n This is a grouped and aggregated df.')
-print(group_and_aggregate(df, 'Region'))
+print(group_and_aggregate(df, 'Region', 'Price'))
 
 
-# EJERCICIO 6: Modelo de clasificacion logistica
+# EJERCICIO 6: Modelo de clasificacion logistica.
 
+# pendiente
 
-# EJERCICIO 7: Aplicar funcion una columna con Pandas
-# Function
-def apply_function_to_column(dataframe, col):
-    def modify_salary(row):
-        if row[col] == 'John':
-            return row['Salary'] * 1.1
-        elif row[col] == 'Erin' or row[col] == 'Danielle':
-            return row['Salary'] * 1.05
-        return row['Salary']
-
-    dataframe['Salary'] = dataframe.apply(modify_salary, axis=1)
-
-
-# Create sample dataframe with 3 columns.
+# EJERCICIO 7: Aplicar funcion una columna con Pandas.
+# Create sample df.
 df = pd.DataFrame({
-    'ID': [1, 2, 3],
-    'Name': ['John', 'Erin', 'Danielle'],
-    'Salary': [50000, 70000, 80000]
+    'ID': [1, 2, 3, 4],
+    'Name': ['John', 'Erin', 'Danielle', 'Chris'],
+    'Salary': [50000, 70000, 80000, 90000]
 })
 
+# Print sample df
 print('\n This is a sample df.')
 print(df)
 
-# Call function and print result
+# Call function and print df with modified column.
 print('\n This is a modified column from the df.')
 apply_function_to_column(df, 'Name')
 print(df)
 
-
-# EJERCICIO 8: Comprehensions con condiciones
-# Function
-def filter_and_square(number_list):
-    new_list = []
-    for x in number_list:
-        if x > 5:
-            new_list.append(x)
-
-    return [x ** 2 for x in new_list]
-
-
+# EJERCICIO 8: Comprehensions con condiciones.
 # Create sample list
 n_list = [4, 6, 8, 3, 9]
 
+# Print sample list
 print('\n This is a sample list.')
 print(n_list)
 
-# Call function and print result
+# Call function and print filtered and squared list.
 print('\n This is a filtered and squared list.')
-print(
-    filter_and_square(n_list)
-)
+print(filter_and_square(n_list))
