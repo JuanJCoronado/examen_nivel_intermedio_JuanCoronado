@@ -6,36 +6,17 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_squared_error, r2_score
 
 
-# EJERCICIO 1: Filtrar DataFrame con Pandas
-# Function
-def filter_dataframe(dataframe, col, val):
-    filtered_df = dataframe.loc[dataframe[col] > val]
+# FUNCTIONS
+# Function 1
+def filter_dataframe(dataframe, column, val):
+    filtered_df = dataframe.loc[dataframe[column] > val]
     return filtered_df
 
 
-# Create sample dataframe with 4 columns.
-df = pd.DataFrame({
-    'ID': [1, 2, 3, 4, 5],
-    'Region': ['NA', 'LATAM', 'NA', 'EMEA', 'APAC'],
-    'Country': ['US', 'MX', 'CA', 'RO', 'PH'],
-    'Value': [1.5, 2.5, 0.5, 3.2, 1.2]
-
-})
-print('This is a sample df.')
-print(df)
-
-# Call function and print result
-print('\n This is a filtered df.')
-print(
-    filter_dataframe(df, 'Value', 1.4)
-)
-
-
-# EJERCICIO 2: Generar datos para regresion
-# Function
-def generate_regression_data(n_samples):
+# Function 2
+def generate_regression_data(num_samples):
     data = pd.DataFrame()
-    for i in range(0, n_samples):
+    for i in range(0, num_samples):
         data.loc[i, 'ID'] = i+1
         data.loc[i, 'Independent_Var1'] = fake.random_number(digits=2)
         data.loc[i, 'Independent_Var2'] = fake.random_number(digits=2)
@@ -43,18 +24,7 @@ def generate_regression_data(n_samples):
     return data
 
 
-# Create faker instance and define sample size
-fake = Faker()
-n_sample = 20
-
-# Call function and print result
-print('\n This is a sample df generated using Faker.')
-data = generate_regression_data(n_sample)
-print(data)
-
-
-# EJERCICIO 3: Entrenar modelo de regresion multiple.
-# Function
+# Function 3
 def train_multiple_linear_regression(independent_vars, dependent_var):
     X = independent_vars
     y = dependent_var
@@ -74,14 +44,7 @@ def train_multiple_linear_regression(independent_vars, dependent_var):
     return model
 
 
-# Define independent and dependant variables and call function
-X = data[['Independent_Var1', 'Independent_Var2']]
-y = data[['Dependant_Var']]
-train_multiple_linear_regression(X, y)
-# _________
-
-# EJERCICIO 4: List comprehension anidado
-# Function
+# Function 4
 def flatten_list(list_of_lists):
     flat_list = []
     for x in list_of_lists:
@@ -89,26 +52,66 @@ def flatten_list(list_of_lists):
     return flat_list
 
 
-# Create sample list of lists
-list_of_lists = [['a', 'b', 'c'], [1, 2, 3], ['x', 'y', 'z'], [7, 8, 9]]
-print('\n This is a sample list of lists.')
-print(list_of_lists)
-
-# Call function and print result
-print('\n This is a flattened list.')
-print(
-    flatten_list(list_of_lists)
-)
-
-
-# EJERCICIO 5: Agrupar y agregar con Pandas
-# FUNCTION
-def group_and_aggregate(dataframe, col):
-    grouped_df = df.groupby(col)['Price'].mean()
+# Function 5
+def group_and_aggregate(dataframe, column):
+    grouped_df = df.groupby(column)['Price'].mean()
     return grouped_df
 
 
-# Create sample dataframe with 4 columns.
+# EJERCICIO 1: Filtrar DataFrame con Pandas.
+# Create sample df and define value to filter.
+df = pd.DataFrame({
+    'ID': [1, 2, 3, 4, 5],
+    'Region': ['NA', 'LATAM', 'NA', 'EMEA', 'APAC'],
+    'Country': ['US', 'MX', 'CA', 'RO', 'PH'],
+    'Price': [10.5, 20.5, 5.7, 30.2, 13.2]
+})
+Value = 11.1
+
+# Print sample df.
+print('This is a sample df.')
+print(df)
+
+# Call function and print filtered df.
+print('\n This is a filtered df.')
+print(filter_dataframe(df, 'Price', Value))
+
+
+# EJERCICIO 2: Generar datos para regresion.
+# Create faker instance and define sample size.
+fake = Faker()
+n_samples = 20
+
+# Call function and print generated df.
+print('\n This is a sample df generated using Faker.')
+data = generate_regression_data(n_samples)
+print(data)
+
+
+# EJERCICIO 3: Entrenar modelo de regresión multiple.
+# Define independent and dependant variables from previous df.
+X = data[['Independent_Var1', 'Independent_Var2']]
+y = data[['Dependant_Var']]
+
+# Call function.
+train_multiple_linear_regression(X, y)
+
+
+# EJERCICIO 4: List comprehension anidado.
+# Create sample list of lists
+list_of_lists = [['a', 'b', 'c'], [1, 2, 3], ['x', 'y', 'z'], [7, 8, 9]]
+
+# Print sample list of lists.
+print('\n This is a sample list of lists.')
+print(list_of_lists)
+
+# Call function and print new flattened list.
+print('\n This is a flattened list.')
+print(flatten_list(list_of_lists))
+
+
+# EJERCICIO 5: Agrupar y agregar con Pandas.
+# Create sample dataframe.
 df = pd.DataFrame({
     'ID': [1, 2, 3, 4, 5],
     'Region': ['LATAM', 'LATAM', 'LATAM', 'EMEA', 'EMEA'],
@@ -116,14 +119,13 @@ df = pd.DataFrame({
     'Price': [200, 300, 100, 200, 400]
 })
 
+# Print sample df
 print('\n This is a sample df.')
 print(df)
 
-# Call function and print result
+# Call function and print grouped and aggregated df.
 print('\n This is a grouped and aggregated df.')
-print(
-    group_and_aggregate(df, 'Region')
-)
+print(group_and_aggregate(df, 'Region'))
 
 
 # EJERCICIO 6: Modelo de clasificacion logistica
