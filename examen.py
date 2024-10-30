@@ -3,7 +3,7 @@ import numpy as np
 from faker import Faker
 from sklearn.linear_model import LinearRegression
 from sklearn.model_selection import train_test_split
-from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
+from sklearn.metrics import mean_squared_error, r2_score
 
 
 # EJERCICIO 1: Filtrar DataFrame con Pandas
@@ -55,26 +55,29 @@ print(data)
 
 # EJERCICIO 3: Entrenar modelo de regresion multiple.
 # Function
-def train_multiple_linear_regression():
-    return 3
+def train_multiple_linear_regression(independent_vars, dependent_var):
+    X = independent_vars
+    y = dependent_var
+    X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=1)
+
+    model = LinearRegression()
+    model.fit(X_train, y_train)
+
+    predictions = model.predict(X_test)
+
+    # Evaluate the model
+    print('\n These are the metrics that evaluate the model')
+    print('Mean squared error (MSE): ', mean_squared_error(y_test, predictions))
+    print('Root mean squared error (RMSE): ', np.sqrt(mean_squared_error(y_test, predictions)))
+    print('R squared (R2): ', r2_score(y_test, predictions))
+
+    return model
 
 
-X = data[['Independent_Var1']]
+# Define independent and dependant variables and call function
+X = data[['Independent_Var1', 'Independent_Var2']]
 y = data[['Dependant_Var']]
-X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=1)
-
-model = LinearRegression()
-model.fit(X_train, y_train)
-
-
-predictions = model.predict(X_test)
-
-# Evaluating the model:
-print(mean_squared_error(y_test, predictions)) # mean squared error (MSE)
-print(np.sqrt(mean_squared_error(y_test, predictions))) # root mean square error (RMSE)
-print(model.score(X_test, y_test))
-print(r2_score(y_test, predictions))
-
+train_multiple_linear_regression(X, y)
 # _________
 
 # EJERCICIO 4: List comprehension anidado
