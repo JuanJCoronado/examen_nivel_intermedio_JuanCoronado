@@ -36,7 +36,7 @@ def train_multiple_linear_regression(dataframe, independent_vars, dependent_var)
     predictions = model.predict(X_test)
 
     # Evaluate the model
-    print('\n These are the metrics that evaluate the model')
+    print('\n These are the metrics that evaluate the multiple regression model.')
     print('Mean squared error (MSE): ', mean_squared_error(y_test, predictions))
     print('Root mean squared error (RMSE): ', np.sqrt(mean_squared_error(y_test, predictions)))
     print('R squared (R2): ', r2_score(y_test, predictions))
@@ -79,11 +79,11 @@ def train_logistic_regression(independent_var, dependant_var):
     new_df['predictions'] = predictions
 
     # Print the test df with prob and pred.
-    print('\n This is the df that contains the test data used, along with probabiliesy and predictions.')
+    print('\n This is the df that contains the test data used, along with probabilities and predictions.')
     print(new_df)
 
     # Evaluate the model.
-    print('\n These are metrics that evaluate the model')
+    print('\n These are metrics that evaluate the logistic regression model.')
     print('Accuracy', model.score(X_test, y_test))
     print('\n Classification report')
     print(classification_report(y_test, model.predict(X_test)))
@@ -136,6 +136,7 @@ print(filter_dataframe(df, 'Price', Value))
 # EJERCICIO 2: Generar datos para regresion.
 # Create faker instance and define sample size.
 fake = Faker()
+Faker.seed(0)
 n_samples = 500
 
 # Call function and print generated fake data df.
@@ -155,15 +156,15 @@ train_multiple_linear_regression(data, X, y)
 
 # EJERCICIO 4: List comprehension anidado.
 # Create sample list of lists
-list_of_lists = [['a', 'b', 'c'], [1, 2, 3], ['x', 'y', 'z'], [7, 8, 9]]
+listOfLists = [['a', 'b', 'c'], [1, 2, 3], ['x', 'y', 'z'], [7, 8, 9]]
 
 # Print sample list of lists.
 print('\n This is a sample list of lists.')
-print(list_of_lists)
+print(listOfLists)
 
 # Call function and print new flattened list.
 print('\n This is a flattened list.')
-print(flatten_list(list_of_lists))
+print(flatten_list(listOfLists))
 
 
 # EJERCICIO 5: Agrupar y agregar con Pandas.
@@ -213,6 +214,7 @@ print(df)
 print('\n This is a modified column from the df.')
 apply_function_to_column(df, 'Name')
 print(df)
+
 
 # EJERCICIO 8: Comprehensions con condiciones.
 # Create sample list
