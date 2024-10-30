@@ -1,5 +1,9 @@
 import pandas as pd
+import numpy as np
 from faker import Faker
+from sklearn.linear_model import LinearRegression
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
 
 
 # EJERCICIO 1: Filtrar DataFrame con Pandas
@@ -27,25 +31,49 @@ print(
 )
 
 
-# Ejercicio 2
+# EJERCICIO 2: Generar datos para regresion
 # Function
-# ________
 def generate_regression_data(n_samples):
-    return 223
+    data = pd.DataFrame()
+    for i in range(0, n_samples):
+        data.loc[i, 'ID'] = i+1
+        data.loc[i, 'Independent_Var1'] = fake.random_number(digits=2)
+        data.loc[i, 'Independent_Var2'] = fake.random_number(digits=2)
+        data.loc[i, 'Dependant_Var'] = fake.random_number(digits=2)
+    return data
 
 
+# Create faker instance and define sample size
 fake = Faker()
-n_samples = 3
-for i in range(n_samples):
-    print(
-        fake.random_number(digits=2)
-    )
+n_sample = 20
+
+# Call function and print result
+print('\n This is a sample df generated using Faker.')
+data = generate_regression_data(n_sample)
+print(data)
 
 
-# _________
+# EJERCICIO 3: Entrenar modelo de regresion multiple.
+# Function
+def train_multiple_linear_regression():
+    return 3
 
-# EJERCICIO 3
 
+X = data[['Independent_Var1']]
+y = data[['Dependant_Var']]
+X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=1)
+
+model = LinearRegression()
+model.fit(X_train, y_train)
+
+
+predictions = model.predict(X_test)
+
+# Evaluating the model:
+print(mean_squared_error(y_test, predictions)) # mean squared error (MSE)
+print(np.sqrt(mean_squared_error(y_test, predictions))) # root mean square error (RMSE)
+print(model.score(X_test, y_test))
+print(r2_score(y_test, predictions))
 
 # _________
 
